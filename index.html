@@ -521,11 +521,7 @@ body{background:var(--color-bg);color:var(--color-fg);padding-block:8px;padding-
       { k: l1, v: fmt(intra), s: G.etat ? '' : 'dont ' + fmt(intraAct) + ' actifs', c: P.p1 },
       { k: l2, v: fmt(interN), s: G.etat ? '' : 'dont ' + fmt(interAct) + ' actifs, non implémentés', c: P.p4 },
       { k: 'Contrôles implémentés dans les états', v: fmt(app), s: fmt(fm) + ' cellules avec formule', c: P.p2 },
-      { k: 'Taux d’implémentation', v: fmt(pct(app, intraAct)) + ' %', s: 'des contrôles intra-état actifs', c: P.p3 },
-      { k: 'Contrôles bloquants implémentés', v: fmt(blkApp) + ' / ' + fmt(blk.length), s: fmt(pct(blkApp, blk.length)) + ' % des règles de sévérité Erreur', c: P.p5 },
-      { k: 'Cellules saisissables calculées', v: fmt(pct(fm, sa)) + ' %', s: fmt(fm) + ' formules sur ' + fmt(sa) + ' cellules', c: P.p2 },
-      { k: 'États couverts à 100 %', v: fmt(full) + ' / ' + fmt(Ec.length), s: fmt(zero) + ' états sans aucun contrôle implémenté', c: P.p1 },
-      { k: 'Reste à faire', v: fmt(non.length), s: fmt(c('Hors périmètre')) + ' hors périmètre · ' + fmt(c('sans')) + ' sans cellule · ' + fmt(c('État absent du template')) + ' état absent', c: P.p3 }
+      { k: 'Taux d’implémentation', v: fmt(pct(app, intraAct)) + ' %', s: 'des contrôles intra-état actifs', c: P.p3 }
     ];
   }
   dash.draw('kpis', (el) => {
