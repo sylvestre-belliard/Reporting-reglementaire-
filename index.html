@@ -1,6 +1,6 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contrôles taxonomiques 4.4</title><style>html,body{margin:0}body{font-size:14px}[hidden]{display:none!important}*{box-sizing:border-box}
 
-.v{--p1:#1F4E9E;--p2:#2A9D8F;--p3:#E9A23B;--p4:#9AA7B8;--p5:#C8553D;--p6:#CBD5E1;font-family:var(--font-anthropic-sans);color:var(--color-fg);max-width:1160px;margin:0 auto;padding:20px 0}
+.v{--p1:#4338CA;--p2:#8B5CF6;--p3:#A5B4FC;--p4:#8E9AD6;--p5:#C04FA8;--p6:#D6D9F2;font-family:var(--font-anthropic-sans);color:var(--color-fg);max-width:1160px;margin:0 auto;padding:20px 0}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;padding:6px 0 18px;border-bottom:1px solid var(--color-border-line)}
 .top h1{font-family:var(--font-anthropic-serif);font-weight:400;font-size:30px;line-height:1.15;margin:0 0 4px}
 .eyebrow{margin:0 0 6px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--p1);font-weight:600}
@@ -68,11 +68,11 @@ table.t td.x{max-width:340px;color:var(--color-fg-muted)}
 .xl-detail .rl{margin:4px 0}.xl-detail .rl b{font-family:ui-monospace,monospace;font-size:12px}
 @media (max-width:640px){.top h1{font-size:24px}.kpi b{font-size:32px}}
 
-:root{--color-bg:#F7F8FB;--color-panel:#FFFFFF;--color-fg:#16213A;--color-fg-muted:#5B6678;--color-border-line:#DCE1EA;
---cds-text-secondary:#3E4A60;--cds-surface-popover:#FFFFFF;--cds-border:#DCE1EA;--cds-shadow-popover:0 4px 14px rgba(22,33,58,.14);
+:root{--color-bg:#F5F4FD;--color-panel:#FFFFFF;--color-fg:#1E1B4B;--color-fg-muted:#5F5C8A;--color-border-line:#DAD8F0;
+--cds-text-secondary:#433F78;--cds-surface-popover:#FFFFFF;--cds-border:#DAD8F0;--cds-shadow-popover:0 4px 14px rgba(30,27,75,.14);
 --font-anthropic-sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;--font-anthropic-serif:'Space Grotesk','Inter',system-ui,sans-serif}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--color-bg:#0F1626;--color-panel:#17203A;--color-fg:#E8ECF4;--color-fg-muted:#9AA6BA;--color-border-line:#2B3552;--cds-text-secondary:#C3CCDC;--cds-surface-popover:#1E2947;--cds-border:#2B3552;--cds-shadow-popover:0 4px 14px rgba(0,0,0,.5);color-scheme:dark}}
-:root[data-theme="dark"]{--color-bg:#0F1626;--color-panel:#17203A;--color-fg:#E8ECF4;--color-fg-muted:#9AA6BA;--color-border-line:#2B3552;--cds-text-secondary:#C3CCDC;--cds-surface-popover:#1E2947;--cds-border:#2B3552;--cds-shadow-popover:0 4px 14px rgba(0,0,0,.5);color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--color-bg:#13112B;--color-panel:#1C1A3F;--color-fg:#ECEAFB;--color-fg-muted:#A29FCB;--color-border-line:#35316A;--cds-text-secondary:#C9C6EA;--cds-surface-popover:#25224D;--cds-border:#35316A;--cds-shadow-popover:0 4px 14px rgba(0,0,0,.5);color-scheme:dark}}
+:root[data-theme="dark"]{--color-bg:#13112B;--color-panel:#1C1A3F;--color-fg:#ECEAFB;--color-fg-muted:#A29FCB;--color-border-line:#35316A;--cds-text-secondary:#C9C6EA;--cds-surface-popover:#25224D;--cds-border:#35316A;--cds-shadow-popover:0 4px 14px rgba(0,0,0,.5);color-scheme:dark}
 body{background:var(--color-bg);color:var(--color-fg);padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .dash-select{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--color-border-line);border-radius:8px;background:var(--color-panel);color:var(--color-fg);max-width:100%}
 .v *{min-width:0}.v h1{text-wrap:balance}
@@ -290,7 +290,7 @@ body{background:var(--color-bg);color:var(--color-fg);padding-block:8px;padding-
 <script>(function () {
   const fmt = (n) => (+n).toLocaleString('fr-FR');
   const pct = (a, b) => (b ? Math.round(a / b * 1000) / 10 : 0);
-  const P = { p1: '#1F4E9E', p2: '#2A9D8F', p3: '#E9A23B', p4: '#9AA7B8', p5: '#C8553D', p6: '#CBD5E1' };
+  const P = { p1: '#4338CA', p2: '#8B5CF6', p3: '#A5B4FC', p4: '#8E9AD6', p5: '#C04FA8', p6: '#D6D9F2' };
   const motion = () => !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   const CATS = ['Appliquée', 'Aucune cellule applicable', 'Non résolue', 'État absent du template', 'Hors périmètre'];
   const G = { sev: '', etat: '' };
@@ -652,8 +652,8 @@ body{background:var(--color-bg);color:var(--color-fg);padding-block:8px;padding-
       .on('mousemove', (ev, d) => moveTip(tip, el, ev, `${d.data.etat} : ${fmt(d.data.regles)} contrôles, ${fmt(d.data.appliquees)} implémentés (${pct(d.data.appliquees, d.data.regles)} %)`))
       .on('mouseleave', () => tip.style('display', 'none')).on('click', (ev, d) => explore({ etat: d.data.etat }));
     const dark = (d) => { const t = d.data.appliquees / d.data.regles; return t >= 0.72 || t <= 0.18; };
-    g.filter((d) => d.x1 - d.x0 > 48 && d.y1 - d.y0 > 24).append('text').attr('x', 6).attr('y', 16).style('pointer-events', 'none').style('font-weight', 600).style('fill', (d) => (dark(d) ? '#fff' : '#16213A')).text((d) => d.data.etat);
-    g.filter((d) => d.x1 - d.x0 > 48 && d.y1 - d.y0 > 42).append('text').attr('x', 6).attr('y', 31).style('pointer-events', 'none').style('fill', (d) => (dark(d) ? '#fff' : '#16213A')).text((d) => fmt(pct(d.data.appliquees, d.data.regles)) + ' %');
+    g.filter((d) => d.x1 - d.x0 > 48 && d.y1 - d.y0 > 24).append('text').attr('x', 6).attr('y', 16).style('pointer-events', 'none').style('font-weight', 600).style('fill', (d) => (dark(d) ? '#fff' : '#1E1B4B')).text((d) => d.data.etat);
+    g.filter((d) => d.x1 - d.x0 > 48 && d.y1 - d.y0 > 42).append('text').attr('x', 6).attr('y', 31).style('pointer-events', 'none').style('fill', (d) => (dark(d) ? '#fff' : '#1E1B4B')).text((d) => fmt(pct(d.data.appliquees, d.data.regles)) + ' %');
   });
 
   dash.draw('chart_top', (el) => {
