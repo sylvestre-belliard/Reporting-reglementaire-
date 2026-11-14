@@ -142,8 +142,6 @@ body{background:var(--color-bg);color:var(--color-fg);padding-block:8px;padding-
       <div class="card"><h3>Où en sont les contrôles intra-état ?</h3><p class="note">Statut de chaque contrôle intra-état. Cliquez un segment pour voir les règles.</p><div class="viz" data-draw="donut_statuts"></div></div>
       <div class="card"><h3>Sévérité des contrôles</h3><p class="note">Erreur : bloquant pour la remise. Avertissement : à justifier.</p>
         <div class="legend"><span><i style="background:var(--p1)"></i>Intra-état</span><span><i style="background:var(--p4)"></i>Inter-états</span></div><div class="viz" data-draw="chart_sev"></div></div>
-      <div class="card wide"><h3>Parcours des règles, de la taxonomie à l'implémentation</h3><p class="note">Largeur des flux proportionnelle au nombre de règles. Les inactifs et les inter-états ne sont pas implémentés.</p><div class="viz" data-draw="sankey"></div></div>
-      <div class="card wide"><h3>Carte des états</h3><p class="note">Surface : nombre de contrôles. Couleur : taux d'implémentation, du rouge (rien d'implémenté) au bleu (tout implémenté). Cliquez un état.</p><div class="viz" data-draw="treemap"></div></div>
       <div class="card"><h3>10 états avec le plus de contrôles intra-état</h3>
         <div class="legend"><span><i style="background:var(--p1)"></i>Implémentés</span><span><i style="background:var(--p6)"></i>Non implémentés</span></div><div class="viz" data-draw="chart_top"></div></div>
       <div class="card"><h3>10 états les plus concernés par des contrôles inter-états</h3><p class="note">Nombre de contrôles inter-états qui citent l'état.</p><div class="viz" data-draw="chart_inter"></div></div>
