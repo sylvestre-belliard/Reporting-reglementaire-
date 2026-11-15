@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Commande confirmée — Maison Nomade</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner"><a href="index.html" class="logo">Maison<span>Nomade</span></a></div>
+  </header>
+  <main class="container success" style="padding:64px 16px">
+    <div class="big">🎉</div>
+    <h1>Merci pour votre commande !</h1>
+    <p>Votre paiement a bien été reçu. Un reçu vous a été envoyé par email.<br>
+      Vous recevrez le numéro de suivi dès l'expédition de votre colis (sous 24 à 48 h ouvrées).</p>
+    <p id="ref" style="color:var(--muted);font-size:13px"></p>
+    <a href="index.html" class="btn btn-primary">Continuer mes achats</a>
+  </main>
+  <script>
+    try { localStorage.removeItem("mn_panier"); localStorage.removeItem("mn_promo"); } catch {}
+    const id = new URLSearchParams(location.search).get("session_id");
+    if (id) document.getElementById("ref").textContent = "Référence de paiement : …" + id.slice(-10);
+  </script>
+</body>
+</html>

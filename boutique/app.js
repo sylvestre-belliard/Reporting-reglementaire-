@@ -154,55 +154,63 @@
       <form id="checkoutForm" class="checkout">
         <div>
           <h2>Finaliser ma commande</h2>
-          <div class="field"><label for="email">Email</label><input id="email" type="email" required autocomplete="email"></div>
-          <div class="row">
-            <div class="field"><label for="prenom">Prénom</label><input id="prenom" required autocomplete="given-name"></div>
-            <div class="field"><label for="nomf">Nom</label><input id="nomf" required autocomplete="family-name"></div>
-          </div>
-          <div class="field"><label for="adresse">Adresse</label><input id="adresse" required autocomplete="street-address"></div>
-          <div class="row">
-            <div class="field"><label for="cp">Code postal</label><input id="cp" required pattern="[0-9]{5}" inputmode="numeric" autocomplete="postal-code"></div>
-            <div class="field"><label for="ville">Ville</label><input id="ville" required autocomplete="address-level2"></div>
-          </div>
-          <div class="field"><label for="tel">Téléphone (pour le transporteur)</label><input id="tel" type="tel" autocomplete="tel"></div>
-          <h3>Livraison</h3>
+          <h3>Mode de livraison</h3>
           ${SHIPPING.options.map(o => {
             const free = o.id === "standard" && t.sousTotal - t.remise >= SHIPPING.seuilGratuit;
             return `<label class="ship-opt"><input type="radio" name="ship" value="${o.id}" ${o.id === shippingId ? "checked" : ""}>${o.label}<b>${free ? "Offerte" : eur(o.prix)}</b></label>`;
           }).join("")}
-          <p class="checkbox" style="margin-top:16px">🔒 Le paiement par carte sera branché sur votre prestataire (Stripe, PayPal…). Ce site est en mode démonstration : aucun paiement n'est prélevé.</p>
+          <ul class="perks" style="margin-top:16px">
+            <li>🔒 Vous allez être redirigé vers la page de paiement sécurisée Stripe.</li>
+            <li>📦 Votre adresse de livraison et votre téléphone y seront demandés.</li>
+            <li>💳 Carte bancaire, Visa, Mastercard, Apple Pay, Google Pay.</li>
+          </ul>
         </div>
         <div class="summary">
           <h3 style="margin-top:0">Récapitulatif</h3>
           ${lines}
           <hr style="border:0;border-top:1px solid var(--line)">
           <div class="summary-line"><span>Sous-total</span><span>${eur(t.sousTotal)}</span></div>
-          ${t.remise ? `<div class="summary-line" style="color:var(--ok)"><span>Remise</span><span>−${eur(t.remise)}</span></div>` : ""}
+          ${t.remise ? `<div class="summary-line" style="color:var(--ok)"><span>Remise ${esc(state.promo)}</span><span>−${eur(t.remise)}</span></div>` : ""}
           <div class="summary-line"><span>Livraison</span><span>${t.livraison ? eur(t.livraison) : "Offerte"}</span></div>
           <div class="summary-line" style="font-weight:800;font-size:18px"><span>Total TTC</span><span>${eur(t.total)}</span></div>
-          <label class="checkbox"><input type="checkbox" required> J'accepte les <a href="#" data-legal="cgv">conditions générales de vente</a> et reconnais mon droit de rétractation de 14 jours.</label>
-          <button class="btn btn-primary btn-block">Commander avec obligation de paiement</button>
+          <label class="checkbox"><input type="checkbox" required><span>J'accepte les <a href="#" data-legal="cgv">conditions générales de vente</a> et reconnais mon droit de rétractation de 14 jours.</span></label>
+          <button id="payBtn" class="btn btn-primary btn-block">Payer ${eur(t.total)}</button>
+          <p id="payError" class="promo-msg err"></p>
         </div>
       </form>`);
     $("#checkoutForm").addEventListener("change", e => {
       if (e.target.name === "ship") openCheckout(e.target.value);
     });
-    $("#checkoutForm").addEventListener("submit", e => {
+    $("#checkoutForm").addEventListener("submit", async e => {
       e.preventDefault();
-      const ref = "MN-" + Date.now().toString(36).toUpperCase().slice(-6);
-      const prenom = $("#prenom").value;
-      const email = $("#email").value;
-      const commandes = store.get("mn_commandes", []);
-      commandes.push({ ref, date: new Date().toISOString(), lignes: state.panier, total: t.total });
-      store.set("mn_commandes", commandes);
-      state.panier = []; state.promo = null; save(); renderCart();
-      openModal(`<div class="success">
-        <div class="big">🎉</div>
-        <h2>Merci ${esc(prenom)} !</h2>
-        <p>Votre commande <b>${ref}</b> est confirmée.<br>Un email de confirmation sera envoyé à <b>${esc(email)}</b> avec le lien de suivi dès l'expédition.</p>
-        <button class="btn btn-primary" data-close>Continuer mes achats</button>
-      </div>`);
+      const btn = $("#payBtn");
+      btn.disabled = true; btn.textContent = "Redirection vers le paiement…";
+      let res = null;
+      try {
+        res = await fetch("api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ items: state.panier, promo: state.promo, shipping: shippingId })
+        });
+      } catch { /* pas de serveur (fichier ouvert en local) : mode démo */ }
+      const data = res ? await res.json().catch(() => ({})) : { demo: true };
+      if (res && res.ok && data.url) { location.href = data.url; return; }
+      if (!res || data.demo || res.status === 404 || res.status === 405) return demoConfirmation(t.total);
+      $("#payError").textContent = data.error || "Une erreur est survenue, veuillez réessayer.";
+      btn.disabled = false; btn.textContent = `Payer ${eur(t.total)}`;
     });
+  }
+
+  // Utilisé tant que Stripe n'est pas configuré : aucune somme n'est prélevée.
+  function demoConfirmation(total) {
+    const ref = "DEMO-" + Date.now().toString(36).toUpperCase().slice(-6);
+    state.panier = []; state.promo = null; save(); renderCart();
+    openModal(`<div class="success">
+      <div class="big">🧪</div>
+      <h2>Commande de démonstration</h2>
+      <p>Référence <b>${ref}</b> · ${eur(total)}<br>Le paiement Stripe n'est pas encore configuré : aucune somme n'a été prélevée.</p>
+      <button class="btn btn-primary" data-close>Continuer</button>
+    </div>`);
   }
 
   /* ---------- Pages légales ---------- */
@@ -271,4 +279,8 @@
 
   $("#year").textContent = new Date().getFullYear();
   renderCategories(); renderGrid(); renderCart();
+  if (new URLSearchParams(location.search).get("paiement") === "annule") {
+    toast("Paiement annulé : votre panier a été conservé.");
+    history.replaceState(null, "", location.pathname);
+  }
 })();

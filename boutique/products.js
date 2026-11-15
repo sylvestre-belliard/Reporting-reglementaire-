@@ -148,3 +148,6 @@ const SHIPPING = {
     { id: "express", label: "Express prioritaire (4-7 jours ouvrés)", prix: 9.9 }
   ]
 };
+
+// Rend le catalogue lisible côté serveur (Node) pour recalculer les prix.
+if (typeof module !== "undefined") module.exports = { PRODUCTS, PROMO_CODES, SHIPPING };
