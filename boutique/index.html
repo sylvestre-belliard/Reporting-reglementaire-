@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maison Nomade — Objets malins livrés chez vous</title>
+  <meta name="description" content="Boutique en ligne d'objets malins pour la maison, le bien-être, le sport et les animaux. Livraison offerte dès 49 €.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="topbar">🚚 Livraison offerte dès 49 € · Retours sous 14 jours · Code <strong>BIENVENUE10</strong> : −10 % sur votre 1re commande</div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">Maison<span>Nomade</span></a>
+      <input id="search" class="search" type="search" placeholder="Rechercher un produit…" aria-label="Rechercher">
+      <button id="cartBtn" class="cart-btn" aria-label="Ouvrir le panier">
+        🛒 <span>Panier</span> <span id="cartCount" class="badge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">Nouvelle collection</p>
+          <h1>Des objets malins<br>qui simplifient le quotidien.</h1>
+          <p class="lead">Sélectionnés, testés et livrés directement chez vous. Jusqu'à −35 % sur une sélection de produits.</p>
+          <a href="#catalogue" class="btn btn-primary">Découvrir la boutique</a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <span>🌅</span><span>🎧</span><span>🌿</span><span>🐾</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust container">
+      <div><b>🚚 Livraison suivie</b><span>Offerte dès 49 €</span></div>
+      <div><b>↩️ Retours 14 jours</b><span>Satisfait ou remboursé</span></div>
+      <div><b>🔒 Paiement sécurisé</b><span>CB, Visa, Mastercard</span></div>
+      <div><b>💬 Service client</b><span>Réponse sous 24 h</span></div>
+    </section>
+
+    <section id="catalogue" class="container">
+      <div class="toolbar">
+        <div id="categories" class="chips"></div>
+        <select id="sort" aria-label="Trier">
+          <option value="pop">Popularité</option>
+          <option value="asc">Prix croissant</option>
+          <option value="desc">Prix décroissant</option>
+          <option value="note">Mieux notés</option>
+        </select>
+      </div>
+      <div id="grid" class="grid"></div>
+      <p id="empty" class="empty" hidden>Aucun produit ne correspond à votre recherche.</p>
+    </section>
+
+    <section class="newsletter">
+      <div class="container">
+        <h2>−10 % sur votre première commande</h2>
+        <p>Inscrivez-vous pour recevoir nos nouveautés et offres exclusives.</p>
+        <form id="newsletterForm" class="newsletter-form">
+          <input type="email" required placeholder="votre@email.fr" aria-label="Email">
+          <button class="btn btn-primary">Je m'inscris</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="#" class="logo">Maison<span>Nomade</span></a>
+        <p>Objets malins pour la maison et le quotidien.</p>
+      </div>
+      <div>
+        <h4>Informations</h4>
+        <a href="#" data-legal="livraison">Livraison</a>
+        <a href="#" data-legal="retours">Retours & remboursements</a>
+        <a href="#" data-legal="contact">Contact</a>
+      </div>
+      <div>
+        <h4>Légal</h4>
+        <a href="#" data-legal="mentions">Mentions légales</a>
+        <a href="#" data-legal="cgv">CGV</a>
+        <a href="#" data-legal="confidentialite">Confidentialité</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year"></span> Maison Nomade — Tous droits réservés.</p>
+  </footer>
+
+  <!-- Panier -->
+  <div id="overlay" class="overlay" hidden></div>
+  <aside id="cart" class="drawer" aria-label="Panier" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>Votre panier</h3>
+      <button class="icon-btn" data-close>✕</button>
+    </div>
+    <div id="freeShip" class="free-ship"></div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="drawer-foot">
+      <form id="promoForm" class="promo">
+        <input id="promoInput" placeholder="Code promo">
+        <button class="btn btn-ghost">Appliquer</button>
+      </form>
+      <p id="promoMsg" class="promo-msg"></p>
+      <div class="totals" id="cartTotals"></div>
+      <button id="checkoutBtn" class="btn btn-primary btn-block">Passer commande</button>
+    </div>
+  </aside>
+
+  <!-- Modale générique -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal-box" role="dialog" aria-modal="true">
+      <button class="icon-btn modal-close" data-close>✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
